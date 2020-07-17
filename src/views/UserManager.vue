@@ -92,16 +92,8 @@ export default {
     // 获取用户列表
     getUsertList() {
       // console.log(this.$refs.formlist)
-      const tokenStr = window.sessionStorage.getItem('token')
-      this.$http({
-        method: 'get',
-        url: '/users',
-        headers: {
-          'Authorization': 'Bearer ' + tokenStr,
-          'Content-Type': 'application/json'
-        },
-        params:this.queryInfo
-      }).then(result => {
+      this.$http.get('get', this.queryInfo)
+      .then(result => {
         if (result.status == 200) {
           this.userInfo = result.data
         }

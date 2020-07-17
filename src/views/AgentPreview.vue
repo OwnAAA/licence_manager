@@ -9,7 +9,7 @@
       <div slot="header" class="clearfix">
         <i class="iconfont">&#xe621;</i>
         <span>代理商管理</span>
-        <el-button type="primary" style="float: right;margin-top:-10px">新增代理商</el-button>
+        <el-button type="primary" style="float: right;margin-top:-10px" @click="$router.push('/addagent')">新增代理商</el-button>
       </div>
       <!-- 搜索 -->
       <div>
@@ -68,21 +68,10 @@ export default {
   methods: {
     // 获取代理商列表
     getAgentList() {
-      // console.log(this.$refs.formlist)
-      const tokenStr = window.sessionStorage.getItem('token')
-      this.$http({
-        method: 'get',
-        url: '/agents',
-        headers: {
-          'Authorization': 'Bearer ' + tokenStr,
-          'Content-Type': 'application/json'
-        },
-        params: this.queryInfo.name ? this.queryInfo : ''
-      }).then(result => {
+      this.$http.get('/agents', this.queryInfo.name ? this.queryInfo : '')
+      .then(result => {
         if (result.status == 200) {
-          // console.log(result.data)
           this.agentList = result.data
-          // console.log(this.agentList )
         }
       })
     }

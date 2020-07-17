@@ -94,25 +94,17 @@ export default {
     addAgent() {
       // console.log(this.$refs.formListRef)
       this.$refs.formListRef.validate(async val => {
-        const tokenStr = window.sessionStorage.getItem('token')
         if (val) {
-          this.$http({
-            method: 'post',
-            url: '/agent',
-            headers: {
-              'Authorization': 'Bearer ' + tokenStr,
-              'Content-Type': 'application/json'
-            },
-            data: this.formlist,
-
-          }).then(result => {
-           if(result.status!==200){
+          this.$http.post('/agent', this.formlist)
+          .then(result => {
+            console.table(result.data)
+           if(result.status !== 201) {
              console.log('aaaa')
-           }else{
-            console.log(result)
+           } else {
              this.$message('提交成功');
             //  清空表单
              this.resetForm();
+             this.$router.push('/agentPreview')
            }
           })
         }

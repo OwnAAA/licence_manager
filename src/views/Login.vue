@@ -59,19 +59,15 @@ export default {
       this.$refs[loginForm].validate(async val => {
         if (val) {
 
-          this.$http({
-            method: 'post',
-            url: '/authenticate',
-            auth: this.loginForm,
-            responseType: 'application/json'
-          }).then(result => {
+          this.$http.post('/authenticate', null, this.loginForm)
+          .then(result => {
 
-            if (result.status !== 200) {
-              return this.$message.error('登录失败')
-            }
+            // if (result.status !== 200) {
+            //   return this.$message.error('登录失败')
+            // }
             this.$message.success('您已成功登入')
-            window.sessionStorage.setItem('token', result.data.access_token)
-            window.sessionStorage.setItem('datatime', result.data.expires_in)
+            window.sessionStorage.setItem('token', result.access_token)
+            window.sessionStorage.setItem('datatime', result.expires_in)
             this.$router.push('/dashboard')
           })
         }
