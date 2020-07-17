@@ -1,0 +1,25 @@
+@font-face {font-family: "iconfont";
+  src: url('//at.alicdn.com/t/font_1943997_lwhu9k6qiv.eot?t=1594727757504'); /* IE9 */
+  src: url('//at.alicdn.com/t/font_1943997_lwhu9k6qiv.eot?t=1594727757504#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAM8AAsAAAAABzgAAALtAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDBgqCHIIQATYCJAMMCwgABCAFhG0HPBtcBhHVk6Nkf0tuytAtgLT+joKKGead/fJj1yAJHd0j444R1cDTGAuVSdordQY78jHB8+/a531JZjYLDJIVMWkoogKWgEL1VLWqdQQSUfYvrWkRZG3qph5dLcsRqIPcA+cyUpvQHAA6PIqDTEONKOCoIIRaYBd9A3aimmuAADK6zaDxU68bIIKyNINHkaIeAPX910JEpcK6oYmU2v9cTm8FFMj8luUyx+SjXhzFAQU01qbICijy2BrGbqI8iMMQwIcEeaTq0NSFxQBGCSBLyew4NhXAYLS0RXBLFhrkJA5WHVIPaXGCf14+E2RB4WjAxLaZ6inK3tHJ7PQwRBGE4x0H4AAayAMGZKQ00YdGNKrGR2Hq810Mghor/FzgqtyV/vEUiAso9QMgS0wqeNfHbAi8Wz+BAkAD4AJeQD+wIWrC+mY54hcQA/iBzE7y2fH+rn33ANmTvfHF09vHc+17z0TQwc58fft/In155XLE09RPR7ZPnVr77MPXRXbdOHKN7rjK8wHVndrasMrhE/n/OZtdsQX+b1ogl3JDaZDm5nN/xoz9JnCH6Oq83X6hE8xb4ZnK6T+TIOUfbejc34STMYBJ7TwC11318wd8h5Iva3SpW18DwKswuc7QLoilm1PgdQtb1hhXDIza2AIs8NOaJpyb4Yk83Y2nBTwh3vZXhbeOgWBTQg0UXsSDxpKGGkoeOPiSDy6WUvAhV+1yX0JtoBHjDeTYJ4AQ5A4oArgHmiCPUEN5Aw4RvoJLUBp86BHZ0JeM4GSyJRSMGuQ7JKoqDTLzJCi/xOg5F5QUc9otkk3C4DteNn3EEmmMKfYlCpgNGKoKOAjHYZ5XUFOVomInZq43rmvKXuSoqmhNbAkFowb5DomqSkOb8yT3/kuMnnNBNaQO5y2STdoH3/FaoEdF2Yp0Lc/YlyhgNmCoKuAg2DCHiQrq8n4pKnbiHrF640r1TFuFM7+qeL4tgA9wi06JFkNviSin9rlGKgRlyK0WAAAA') format('woff2'),
+  url('//at.alicdn.com/t/font_1943997_lwhu9k6qiv.woff?t=1594727757504') format('woff'),
+  url('//at.alicdn.com/t/font_1943997_lwhu9k6qiv.ttf?t=1594727757504') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('//at.alicdn.com/t/font_1943997_lwhu9k6qiv.svg?t=1594727757504#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 18px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin:0 12px;
+  color:#3699ff;
+}
+
+.icon-dian:before {
+  content: "\e605";
+}
+.icon-supermarket:before {
+  content: "\e621";
+}

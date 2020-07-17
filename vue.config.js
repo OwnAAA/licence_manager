@@ -1,3 +1,13 @@
 module.exports = {
-  lintOnSave: false
-}
+  lintOnSave: false,
+  devServer: {
+    proxy: {
+      "/api": {
+        target: "http://api.lm.5c.work",
+        changeOrigin: true,
+        pathRewrite: {
+          "^/api": "/"
+        }
+      }
+    }
+}}

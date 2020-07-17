@@ -1,0 +1,40 @@
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+body{
+  background-color: #eef0f8;
+}
+/* 设置主题区域大小及居中 */
+.el-main {
+  width: 69vw;
+  margin: 0 auto;
+  margin-top: 10px;
+  box-sizing: border-box;
+}
+/* 设置card和table之间的距离 */
+.el-table {
+  margin-top: 20px;
+}
+/* 设置card内边距 */
+.el-card{
+  padding: 15px 20px;
+}
+/* 设置分页居中 */
+.el-pagination{
+ text-align: center;
+ margin-top:20px
+}
+/* 操作按钮样式 */
+.rightBtns {
+  border: none;
+  background-color: transparent;
+  font-size: 14px;
+}
+/* 表单间距 */
+.el-row{
+  margin-top: 15px;
+}
