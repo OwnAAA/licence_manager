@@ -46,7 +46,6 @@
             </span>
           </template>
           <el-menu-item-group>
-            <span></span>
             <el-menu-item index="addagent"><i class="iconfont">&#xe605;</i>添加代理商</el-menu-item>
             <el-menu-item index="agentPreview"><i class="iconfont">&#xe605;</i>代理商一览</el-menu-item>
           </el-menu-item-group>
@@ -138,8 +137,8 @@ export default {
 /* 导航鼠标点击 */
 .el-menu-item is-active {
   background: #1a1a27 !important;
-  
 }
+
 /* 分组标题Custom */
 .nav_text {
   color: #4c4e6f;

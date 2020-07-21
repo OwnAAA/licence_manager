@@ -40,6 +40,7 @@ export default {
   right: 0;
   left: 300px;
   box-shadow: 0 3px 16px 0 rgba(0, 0, 0, 0.1);
+  z-index: 200;
 }
 /* 头部 */
 .el-header {

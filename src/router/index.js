@@ -6,6 +6,10 @@ import Addagent from '../views/Addagent.vue';
 import AgentPreview from '../views/AgentPreview.vue';
 import UserManager from '../views/UserManager.vue';
 import Deposit from '../views/Deposit.vue';
+import Record from '../views/Record.vue';
+import AddProduct from '../views/AddProduct.vue';
+import ProductManager from '../views/ProductManager.vue';
+
 Vue.use(VueRouter);
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
@@ -37,13 +41,29 @@ const routes = [
         component: UserManager,
         meta: { title: '用户管理' },
       },
+      {
+        path: '/deposit',
+        component: Deposit,
+        meta: { title: '充值' },
+      },
+      {
+        path: '/record',
+        component: Record,
+        meta: { title: '充值记录' },
+      },
+      {
+        path: '/addProduct',
+        component: AddProduct,
+        meta: { title: '编辑产品' },
+      },
+      {
+        path: '/productManager',
+        component: ProductManager,
+        meta: { title: '产品管理' },
+      },
     ],
   },
-  {
-    path: '/deposit',
-    component: Deposit,
-    meta: { title: '充值' },
-  },
+
 ];
 const router = new VueRouter({
   routes,
@@ -56,7 +76,8 @@ router.beforeEach((to, from, next) => {
   if (to.path === '/login') return next()
   const tokenStr = window.sessionStorage.getItem('token')
   // 过期时间
-  const datatime = window.sessionStorage.getItem('datatime')*1000+Date.now()
+  const datatime = window.sessionStorage.getItem('datatime')+Date.now()
+  // 当前时间
   const time =  Date.now()
   if (time == datatime) {
     window.sessionStorage.clear()

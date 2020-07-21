@@ -3,11 +3,10 @@
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <i class="iconfont">&#xe621;</i>
-        <span>{{title}}代理商</span>
+        <span>{{title}}产品</span>
       </div>
 
-      <!-- 代理商表单 -->
-
+      <!-- 产品表单 -->
       <el-form ref="formListRef" :rules="ruleValidate" :model="formlist" label-width="100px">
         <el-row :gutter="10">
           <el-form-item label="代理商名称" prop="name">
@@ -17,29 +16,29 @@
           </el-form-item>
         </el-row>
         <el-row :gutter="10">
-          <el-form-item label="代理商缩写" prop="short_name">
+          <el-form-item label="产品名" prop="project_name">
             <el-col>
-              <el-input placeholder="输入代理商缩写" v-model.trim="formlist.short_name"></el-input>
+              <el-input placeholder="请输入产品名称" v-model.trim="formlist.project_name"></el-input>
             </el-col>
           </el-form-item>
         </el-row>
         <el-row :gutter="10">
-          <el-form-item label="联系人" prop="connect_name">
+          <el-form-item label="编号" prop="project_no">
             <el-col>
-              <el-input placeholder="输入联系人" v-model.trim="formlist.connect_name"></el-input>
+              <el-input placeholder="请输入编号" v-model.trim="formlist.project_no"></el-input>
             </el-col>
           </el-form-item>
         </el-row>
         <el-row :gutter="10">
-          <el-form-item label="联系电话" prop="connect_phone">
+          <el-form-item label="注册赠送天数" prop="free_days">
             <el-col>
-              <el-input placeholder="输入联系电话" v-model.trim="formlist.connect_phone"></el-input>
+              <el-input placeholder="请输入注册免费赠送天数" v-model.trim="formlist.free_days"></el-input>
             </el-col>
           </el-form-item>
         </el-row>
         <!-- 提交+重置按钮-->
         <el-form-item style="margin-left:200px">
-          <el-button type="primary" @click="addAgent()">提交</el-button>
+          <el-button type="primary" @click="addProduct()">提交</el-button>
           <el-button type="primary" @click="resetForm()" plain>重置</el-button>
         </el-form-item>
       </el-form>
@@ -52,60 +51,50 @@
 export default {
   data() {
     return {
-      title:'添加',
+      title: '添加',
       formlist: {
         name: this.$route.query.name,
-        short_name: this.$route.query.short_name,
-        connect_name: this.$route.query.connect_name,
-        connect_phone: this.$route.query.connect_phone,
+        project_name: this.$route.query.project_name,
+        project_no: this.$route.query.project_no,
+        free_days: this.$route.query.free_days,
         agent_uuid: this.$route.query.agent_uuid,
+        id: ''
       },
       ruleValidate: {
         name: [
-          { required: true, message: '姓名不能为空', trigger: 'blur' },
-          { max: 36, message: '长度在36个字符内', trigger: 'blur' }
+          { required: true, message: '代理商不能为空', trigger: 'blur' },
         ],
-        short_name: [
-          { required: true, message: '缩写不能为空', trigger: 'blur' },
-          { max: 16, message: '长度在16个字符内', trigger: 'blur' }
+        project_name: [
+          { required: true, message: '产品名不能为空', trigger: 'blur' },
         ],
-        connect_name: [
-          { required: true, message: '联系人不能为空', trigger: 'blur' },
-          { max: 36, message: '长度在36个字符内', trigger: 'blur' }
+        project_no: [
+          { required: true, message: '编号不能为空', trigger: 'blur' },
         ],
-        connect_phone: [
-          { required: true, message: '手机号不能为空', trigger: 'blur' },
-          { max: 11, message: '请输入正确的手机号', pattern: '^1[345789][0-9]{9}$', trigger: 'blur' }
+        free_days: [
+          { message: '请输入正确天数', pattern: '^[0-9]+$', trigger: 'blur' }
         ]
       }
     }
   },
   created() {
     this.isAdd()
+    this.getproductList();
   },
   methods: {
     isAdd() {
-      if (this.formlist.name != undefined) {  
+      if (this.formlist.project_name != undefined) {
         this.title = '编辑'
       }
     },
-    // 重置
-    resetForm() {
-      this.$refs.formListRef.resetFields();
-      this.formlist = {}
-
-    },
-    // 添加代理商
-    addAgent() {
-      // 通过agent_uuid判断是否为更新操作
-      if (this.$route.query.agent_uuid != undefined) {
-        this.updateAgent();
+    addProduct() {
+      // 通过project_no判断是否为更新操作
+      if (this.$route.query.project_no != undefined) {
+        this.updateProject();
       } else {
-        // console.log(this.$refs.formListRef)
         this.$refs.formListRef.validate(async val => {
           if (val) {
             this.$http.post(
-              '/agent',
+              '/agent/' + this.formlist.agent_uuid + '/project',
               this.formlist
             ).then(result => {
               if (result.status == 201) {
@@ -118,22 +107,37 @@ export default {
         })
       }
     },
-    updateAgent() {
+    getproductList() {
+      this.$http.get('/agent/' + this.$route.query.agent_uuid + '/projects', null)
+        .then(result => {
+          if (result.status == 200) {
+            this.formlist.id = result.data.id
+            console.log(this.formlist.id)
+          }
+        })
+    },
+    updateProject() {
       this.$refs.formListRef.validate(async val => {
+        console.log
         if (val) {
           this.$http.put(
-            '/agent/' + this.formlist.agent_uuid,
+            '/agent/' + this.formlist.agent_uuid + '/project/' + this.formlist.id,
             this.formlist
           ).then(result => {
             if (result.status == 200) {
               this.$message('修改成功');
               //  清空表单
               this.resetForm();
-              this.$router.push('/agentPreview')
+              this.$router.push('/productManager')
             }
           })
         }
       })
+    },
+    // 重置
+    resetForm() {
+      this.$refs.formListRef.resetFields();
+      this.formlist = {}
     }
   }
 }

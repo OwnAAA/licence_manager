@@ -34,7 +34,24 @@ body{
   background-color: transparent;
   font-size: 14px;
 }
+.el-button+.el-button {
+  margin-left: 0px
+}
 /* 表单间距 */
 .el-row{
   margin-top: 15px;
+}
+/* card标题图标间距 */
+i {
+  padding-left: 8px;
+}
+/* icon和输入框的距离设置 */
+.el-icon-search:before {
+  margin-right: 50px;
+}
+.el-icon-user-solid:before{
+  margin-right: 50px;
+}
+.el-icon-lock:before {
+  margin-right: 50px;
 }

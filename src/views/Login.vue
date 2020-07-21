@@ -11,7 +11,7 @@
       >
         <!-- 账号 -->
         <el-form-item prop="username">
-          <el-input v-model="loginForm.username" prefix-icon="el-icon-user-solid"></el-input>
+          <el-input v-model.trim="loginForm.username" prefix-icon="el-icon-user-solid"></el-input>
         </el-form-item>
         <!-- 密码 -->
         <el-form-item prop="password">
@@ -26,7 +26,7 @@
   </div>
 </template>
 <script>
-// import { userService } from '../services/userService'
+import axios from 'axios'
 export default {
   data() {
     return {
@@ -55,21 +55,24 @@ export default {
   methods: {
     // login () {
     async login(loginForm) {
-      
+
       this.$refs[loginForm].validate(async val => {
         if (val) {
 
-          this.$http.post('/authenticate', null, this.loginForm)
-          .then(result => {
-
-            // if (result.status !== 200) {
-            //   return this.$message.error('登录失败')
-            // }
-            this.$message.success('您已成功登入')
-            window.sessionStorage.setItem('token', result.access_token)
-            window.sessionStorage.setItem('datatime', result.expires_in)
-            this.$router.push('/dashboard')
+          axios({
+            method: 'post',
+            url: '/authenticate',
+            auth: this.loginForm
           })
+            .then(result => {
+              // if (result.status !== 200) {
+              //   return this.$message.error('登录失败')
+              // }
+              this.$message.success('您已成功登入')
+              window.sessionStorage.setItem('token', result.data.access_token)
+              window.sessionStorage.setItem('datatime', result.data.expires_in)
+              this.$router.push('/dashboard')
+            })
         }
       })
     }

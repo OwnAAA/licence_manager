@@ -6,26 +6,33 @@
         METRONIC
         <el-dropdown :hide-on-click="false">
           <span class="el-dropdown-link">
-            <el-button
-              type="text"
-              icon="el-icon-magic-stick"
-              circle
-              @clcik="logout"
-            ></el-button>
+            <el-button type="text" icon="el-icon-magic-stick" circle></el-button>
           </span>
-          <el-dropdown-menu slot="dropdown" style="width: 100%">
-            <el-dropdown-item>代理商管理</el-dropdown-item>
-            <el-dropdown-item>添加代理商</el-dropdown-item>
-            <el-dropdown-item>代理商一览</el-dropdown-item>
-            <el-dropdown-item>用户管理</el-dropdown-item>
-            <el-dropdown-item>用户管理</el-dropdown-item>
+          <el-dropdown-menu slot="dropdown" style="width: 200px;">
+            <span>代理商管理</span>
+            <el-dropdown-item>
+              <el-button type="text" @click="$router.push('/addAgent')">
+                <i class="iconfont">&#xe605;</i>添加代理商
+              </el-button>
+            </el-dropdown-item>
+            <el-dropdown-item>
+              <el-button type="text" @click="$router.push('/agentPreview')">
+                <i class="iconfont">&#xe605;</i>代理商一览
+              </el-button>
+            </el-dropdown-item>
+            <span>用户管理</span>
+            <el-dropdown-item>
+              <el-button type="text" @click="$router.push('/userManager')">
+                <i class="iconfont">&#xe605;</i>用户管理
+              </el-button>
+            </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
         <el-button
-          type="text"
           icon="el-icon-switch-button"
           circle
           style="color: #fff; float: right; margin-top: 10px;"
+          @click="logout()"
         ></el-button>
       </div>
     </el-col>
@@ -33,6 +40,7 @@
 </template>
 <script>
 export default {
+
   name: 'TopNav',
   data() {
     return {
@@ -62,4 +70,15 @@ export default {
   letter-spacing: 2px;
   color: #fff;
 }
+.el-dropdown-menu span {
+  font-size: 14px;
+  margin-left: 20px;
+  color: #606266;
+}
+.el-button {
+  background-color: transparent;
+  border: none;
+  padding-left: 0;
+}
+
 </style>
