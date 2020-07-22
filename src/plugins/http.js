@@ -8,7 +8,10 @@ let authRequest = () => {
     headers: {
       Authorization: 'Bearer ' + window.sessionStorage.getItem('token'),
       'Content-Type': 'application/json',
-    }
+    },
+    validateStatus: () => {
+      return true
+    },
   }
 };
 
