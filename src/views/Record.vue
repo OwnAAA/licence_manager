@@ -45,7 +45,6 @@ export default {
       useRecordInfo: [],
       // 跳转充值
       turnToDeposit(msg) {
-        console.log(msg)
         this.$router.push({
           path: '/deposit',
           query: { phone: msg.phone, id: msg.user_uuid }

@@ -7,11 +7,11 @@
       </div>
 
       <!-- 产品表单 -->
-      <el-form ref="formListRef" :rules="ruleValidate" :model="formlist" label-width="100px">
+      <el-form ref="formListRef" :rules="ruleValidate" :model="formlist" label-width="120px">
         <el-row :gutter="10">
           <el-form-item label="代理商名称" prop="name">
             <el-col>
-              <el-input placeholder="输入代理商名称" v-model.trim="formlist.name"></el-input>
+              <el-input disabled placeholder="输入代理商名称" v-model.trim="formlist.name"></el-input>
             </el-col>
           </el-form-item>
         </el-row>
@@ -61,9 +61,6 @@ export default {
         id: this.$route.query.id
       },
       ruleValidate: {
-        name: [
-          { required: true, message: '代理商不能为空', trigger: 'blur' },
-        ],
         project_name: [
           { required: true, message: '产品名不能为空', trigger: 'blur' },
         ],
@@ -71,7 +68,7 @@ export default {
           { required: true, message: '编号不能为空', trigger: 'blur' },
         ],
         free_days: [
-          // { message: '请输入正确天数', pattern: '^[0-9]*$', trigger: 'blur' }
+          { required: true, message: '请输入正确天数', pattern: '^[0-9]*$', trigger: 'blur' }
         ]
       }
     }
@@ -100,6 +97,12 @@ export default {
                 this.$message('提交成功');
                 //  清空表单
                 this.resetForm();
+                this.$router.push({
+                  path: '/productManager',
+                  query: {
+                    agent_uuid: this.$route.query.agent_uuid,
+                  }
+                })
               }
             })
           }
@@ -126,7 +129,7 @@ export default {
     // 重置
     resetForm() {
       this.$refs.formListRef.resetFields();
-      this.formlist = {}
+      // this.formlist = {}
     }
   }
 }

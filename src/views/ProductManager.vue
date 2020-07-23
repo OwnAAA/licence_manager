@@ -98,7 +98,8 @@ export default {
       this.$router.push({
         path: '/addProduct',
         query: {
-          agent_uuid: this.$route.query.agent_uuid
+          agent_uuid: this.$route.query.agent_uuid,
+          name: this.$route.query.name,
         }
       })
     },

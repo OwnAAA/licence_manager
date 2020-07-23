@@ -10,7 +10,7 @@
         <el-row :gutter="10">
           <el-form-item label="用户" prop="phone">
             <el-col>
-              <el-input placeholder="请输入用户" v-model.trim="formlist.phone"></el-input>
+              <el-input disabled placeholder="请输入用户" v-model.trim="formlist.phone"></el-input>
             </el-col>
           </el-form-item>
         </el-row>
@@ -50,10 +50,6 @@ export default {
         phone: this.$route.query.phone,
       },
       ruleValidate: {
-        phone: [
-          { required: true, message: '用户不能为空', trigger: 'blur' },
-          { max: 11, message: '请输入正确的用户', pattern: '^1[345789][0-9]{9}$', trigger: 'blur' }
-        ],
         consume: [
           { required: true, message: '金额不能为空', trigger: 'blur' },
           { message: '请输入正确的金额', pattern: '^[0-9]*$', trigger: 'blur' }
@@ -85,6 +81,10 @@ export default {
               this.$message('提交成功');
               //  清空表单
               this.resetForm();
+              this.$router.push({
+                path: '/record',
+                query: { phone: this.formlist.phone, user_uuid: this.formlist.user_uuid }
+              });
             }
           })
         }

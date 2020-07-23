@@ -10,7 +10,8 @@ body{
 }
 /* 设置主题区域大小及居中 */
 .el-main {
-  width: 69vw;
+  /* width: 69vw; */
+  width: 100%;
   margin: 0 auto;
   margin-top: 10px;
   box-sizing: border-box;
