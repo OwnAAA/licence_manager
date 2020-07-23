@@ -58,7 +58,7 @@ export default {
         project_no: this.$route.query.project_no,
         free_days: this.$route.query.free_days,
         agent_uuid: this.$route.query.agent_uuid,
-        id: ''
+        id: this.$route.query.id
       },
       ruleValidate: {
         name: [
@@ -71,14 +71,13 @@ export default {
           { required: true, message: '编号不能为空', trigger: 'blur' },
         ],
         free_days: [
-          { message: '请输入正确天数', pattern: '^[0-9]+$', trigger: 'blur' }
+          // { message: '请输入正确天数', pattern: '^[0-9]*$', trigger: 'blur' }
         ]
       }
     }
   },
   created() {
     this.isAdd()
-    this.getproductList();
   },
   methods: {
     isAdd() {
@@ -107,18 +106,9 @@ export default {
         })
       }
     },
-    getproductList() {
-      this.$http.get('/agent/' + this.$route.query.agent_uuid + '/projects', null)
-        .then(result => {
-          if (result.status == 200) {
-            this.formlist.id = result.data.id
-            console.log(this.formlist.id)
-          }
-        })
-    },
     updateProject() {
+      // this.getproductList()
       this.$refs.formListRef.validate(async val => {
-        console.log
         if (val) {
           this.$http.put(
             '/agent/' + this.formlist.agent_uuid + '/project/' + this.formlist.id,
@@ -128,7 +118,6 @@ export default {
               this.$message('修改成功');
               //  清空表单
               this.resetForm();
-              this.$router.push('/productManager')
             }
           })
         }
