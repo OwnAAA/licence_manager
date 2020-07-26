@@ -1,28 +1,39 @@
 <template>
   <div class="login_container">
-    <div class="login_box">
-      <!-- 登录表单 -->
-      <el-form
-        :model="loginForm"
-        :rules="login_rules"
-        ref="loginForm"
-        label-width="0px"
-        class="login_form"
-      >
-        <!-- 账号 -->
-        <el-form-item prop="username">
-          <el-input v-model.trim="loginForm.username" prefix-icon="el-icon-user-solid"></el-input>
-        </el-form-item>
-        <!-- 密码 -->
-        <el-form-item prop="password">
-          <el-input v-model="loginForm.password" type="password" prefix-icon="el-icon-lock"></el-input>
-        </el-form-item>
-        <!-- 登录按钮 -->
-        <el-form-item class="login_btn">
-          <el-button type="primary" @click="login('loginForm')">登录</el-button>
-        </el-form-item>
-      </el-form>
-    </div>
+    <el-row type="flex" align="middle" justify="center" style="margin-top:0;">
+      <img
+      class="logo"
+      src="../assets/logo.png">
+    </el-row>
+    <el-row type="flex" align="middle" justify="center">
+      <el-col :xs="22" :sm="16" :md="8">
+        <br/>
+        <el-card class="box-card">
+          <!-- 登录表单 -->
+          <el-form
+            :model="loginForm"
+            :rules="login_rules"
+            ref="loginForm"
+            label-width="0px"
+          >
+            <!-- 账号 -->
+            <el-form-item prop="username">
+              <el-input v-model.trim="loginForm.username" prefix-icon="el-icon-user-solid" placeholder="请输入帐号"></el-input>
+            </el-form-item>
+            <!-- 密码 -->
+            <el-form-item prop="password">
+              <el-input v-model="loginForm.password" type="password" prefix-icon="el-icon-lock" placeholder="请输入密码"></el-input>
+            </el-form-item>
+            <!-- 登录按钮 -->
+            <el-form-item class="login_btn">
+              <el-button type="primary" @click="login('loginForm')">登录</el-button>
+            </el-form-item>
+          </el-form>
+        </el-card>
+      </el-col>
+    </el-row>
+    <!-- <div class="login_box"> -->
+    <!-- </div> -->
   </div>
 </template>
 <script>
@@ -81,30 +92,33 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.logo {
+  font-weight: lighter;
+  font-size: 15px;
+  text-align: center;
+  width: 120px;
+  height: 130px;
+  margin-top: 20%;
+  /* position: absolute;
+  margin-top: -300px; */
+}
+
 .login_container {
   width: 100%;
   height: 100%;
   background-color: #1e1e2d;
 }
-.login_title {
-  position: absolute;
-  top: 25%;
-  left: 30%;
-  font-size: 2em;
-  font-family: "Arial Negreta", "Arial Normal", "Arial";
-  color: #fff;
-}
 .login_box {
-  background-color: #fff;
+  background: #f7f7f7;
   /* opacity: 0.9; */
   border: 1px solid #afb0b2;
   width: 450px;
   height: 300px;
   border-radius: 7px;
-  position: absolute;
+  /* position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: 50%; */
+  /* transform: translate(-50%, -50%); */
 }
 .login_form {
   position: absolute;
@@ -125,5 +139,6 @@ export default {
 .login_btn {
   display: flex;
   justify-content: flex-end;
+  margin-bottom: 0;
 }
 </style>
