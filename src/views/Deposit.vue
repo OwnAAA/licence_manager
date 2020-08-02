@@ -22,7 +22,7 @@
           </el-form-item>
         </el-row>
         <el-row :gutter="10">
-          <el-form-item label="购买天数" prop="days_add">
+          <el-form-item label="购买天数" prop="days_add" :error="errors['days_add']">
             <el-col>
               <el-input placeholder="请输入购买天数" v-model.trim="formlist.days_add"></el-input>
             </el-col>
@@ -43,6 +43,9 @@
 export default {
   data() {
     return {
+      errors: {
+        days_add: ''
+      },
       formlist: {
         user_uuid: this.$route.query.id,
         consume: '',
@@ -76,7 +79,12 @@ export default {
         if (val) {
           this.$http.post('/credit', this.formlist).then(result => {
             if (result.status !== 201) {
-              console.log('aaaa')
+              let errors = result.data.errors
+              for (let key of Object.keys(errors)) {
+                this.$set(this.errors, key, errors[key])
+              }
+              console.log(errors)
+              this.$message('提交失败');
             } else {
               this.$message('提交成功');
               //  清空表单

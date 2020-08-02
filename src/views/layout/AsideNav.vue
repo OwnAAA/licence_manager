@@ -2,17 +2,16 @@
   <div id="nav_wrap">
     <el-col>
       <!-- 导航头 -->
-      <div class="nav_title">METRONIC</div>
+      <div class="nav_title">LM授权管理系统</div>
       <!-- 导航菜单 -->
       <el-menu
         background-color="transparent"
         active-text-color="#fff"
         text-color="#9899AC"
-        unique-opened
         router
+        :default-openeds='["1", "2"]'
       >
-        <span class="nav_text">CUSTOM</span>
-        <el-submenu index="1">
+        <el-submenu index="1" v-if="scope !== 'agent'">
           <template slot="title">
             <span>
               <span class="svg-icon menu-icon">
@@ -98,7 +97,11 @@ export default {
   name: 'AsideNav',
   data() {
     return {
+      'scope': '',
     }
+  },
+  created() {
+    this.scope = window.sessionStorage.getItem('scope')
   }
 }
 </script>

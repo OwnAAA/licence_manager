@@ -30,9 +30,9 @@
           </el-form-item>
         </el-row>
         <el-row :gutter="10">
-          <el-form-item label="注册赠送天数" prop="free_days">
+          <el-form-item label="代理天数" prop="free_days">
             <el-col>
-              <el-input placeholder="请输入注册免费赠送天数" v-model.trim="formlist.free_days"></el-input>
+              <el-input placeholder="请输入代理天数" v-model.trim="formlist.free_days"></el-input>
             </el-col>
           </el-form-item>
         </el-row>

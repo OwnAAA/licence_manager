@@ -1,14 +1,16 @@
 <template>
   <div class="login_container">
-    <el-row type="flex" align="middle" justify="center" style="margin-top:0;">
-      <img
-      class="logo"
-      src="../assets/logo.png">
-    </el-row>
-    <el-row type="flex" align="middle" justify="center">
-      <el-col :xs="22" :sm="16" :md="8">
+    <el-row class="full">
+      <el-col :xs="24" :sm="24" :md="14" style="height: 100%;" class="hidden-sm-and-down">
+        <img width="100%" height="100%" class="bg" src="https://gratisography.com/wp-content/uploads/2019/11/gratisography-laptop-colorful-keys-800x525.jpg"/>
+      </el-col>
+      <el-col :xs="24" :sm="24" :md="14" class="hidden-md-and-up">
+        <img width="100%" class="bg" src="https://gratisography.com/wp-content/uploads/2019/11/gratisography-laptop-colorful-keys-800x525.jpg"/>
+      </el-col>
+      <el-col :xs="22" :sm="22" :md="8" :offset="2" :pull="1" style="margin-top: 20%;">
         <br/>
         <el-card class="box-card">
+          <h3>LM授权管理系统</h3>
           <!-- 登录表单 -->
           <el-form
             :model="loginForm"
@@ -22,7 +24,7 @@
             </el-form-item>
             <!-- 密码 -->
             <el-form-item prop="password">
-              <el-input v-model="loginForm.password" type="password" prefix-icon="el-icon-lock" placeholder="请输入密码"></el-input>
+              <el-input v-model="loginForm.password" type="password" prefix-icon="el-icon-lock" placeholder="请输入密码" @keyup.enter.native="login('loginForm')"></el-input>
             </el-form-item>
             <!-- 登录按钮 -->
             <el-form-item class="login_btn">
@@ -73,16 +75,28 @@ export default {
           axios({
             method: 'post',
             url: '/authenticate',
-            auth: this.loginForm
+            auth: this.loginForm,
+            data: this.loginForm.username.length > 10 ? {
+              scope: 'agent',
+            } : {},
+            validateStatus: () => {
+              return true
+            }
           })
             .then(result => {
-              // if (result.status !== 200) {
-              //   return this.$message.error('登录失败')
-              // }
+              console.log(result)
+              if (result.status !== 200) {
+                return this.$message.error('登录失败')
+              }
               this.$message.success('您已成功登入')
+              window.sessionStorage.setItem('scope', result.data.token_scope)
               window.sessionStorage.setItem('token', result.data.access_token)
               window.sessionStorage.setItem('datatime', result.data.expires_in)
-              this.$router.push('/dashboard')
+
+              if (result.data.token_scope === 'admin') {
+                return this.$router.push('/agentPreview')
+              }
+              this.$router.push('/')
             })
         }
       })
@@ -92,6 +106,15 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.full {
+  /* align-items: center; */
+  height: 100%;
+  /* display: flex; */
+  margin: 0;
+}
+.bg {
+  object-fit: cover;
+}
 .logo {
   font-weight: lighter;
   font-size: 15px;

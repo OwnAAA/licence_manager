@@ -37,6 +37,7 @@
           <el-table-column prop="user_uuid" label="id"></el-table-column>
           <el-table-column prop="phone" label="手机号"></el-table-column>
           <el-table-column prop="name" label="代理商"></el-table-column>
+          <el-table-column prop="project_name" label="产品"></el-table-column>
           <el-table-column prop="created_at" label="注册时间"></el-table-column>
           <el-table-column prop="expired_at" label="会员到期日"></el-table-column>
           <!-- 操作列 -->

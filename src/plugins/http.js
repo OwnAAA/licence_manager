@@ -93,11 +93,30 @@ let del = (path) => {
       );
     });
   };
+  let patch = (path,data) => {
+    return new Promise((resolve, reject) => {
+      axios(
+        Object.assign(authRequest(), {
+          method: 'patch',
+          url: path, 
+          data:data
+        })
+      ).then(
+        (response) => {
+          resolve(response); 
+        },
+        (err) => {
+          reject(err);
+        }
+      );
+    });
+  };
 const http = {
   post,
   get,
   del,
-  put
+  put,
+  patch
 };
 
 export default http;

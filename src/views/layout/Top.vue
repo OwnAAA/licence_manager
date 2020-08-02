@@ -1,23 +1,45 @@
 <template>
-  <div id="header_wrap">
-    <el-header>
-      <el-dropdown>
-        <div class="el-dropdown-link user_info_contanier">
-          <i class="el-icon-menu" style="color:#3f4254;font-size:20px"></i>
-        </div>
-        <el-dropdown-menu slot="dropdown" style="width:140px">
-          <el-dropdown-item>
-            <el-button class="logout_btn" @click="logout">退出登入</el-button>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-    </el-header>
+  <div>
+    <div id="header_wrap">
+      <el-header>
+        <el-dropdown>
+          <div class="el-dropdown-link user_info_contanier">
+            <i class="el-icon-menu" style="color:#3f4254;font-size:20px"></i>
+          </div>
+          <el-dropdown-menu slot="dropdown" style="width:140px">
+            <el-dropdown-item>
+              <el-button class="logout_btn" @click="dialogFormVisible = true">修改密码</el-button>
+            </el-dropdown-item>
+            <el-dropdown-item>
+              <el-button class="logout_btn" @click="logout">退出登入</el-button>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </el-header>
+    </div>
+
+    <el-dialog title="修改密码" width="300px" :visible.sync="dialogFormVisible">
+      <el-form :model="form" ref="form">
+        <el-form-item>
+          <el-input placeholder="请输入旧密码" v-model="form.old_password" show-password></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-input placeholder="请输入新密码" v-model="form.new_password" show-password></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="changePwd">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
+      dialogFormVisible: false,
+      form: {},
       userInfo: {
         userName: ''
       }
@@ -30,6 +52,30 @@ export default {
       window.sessionStorage.clear()
       this.$router.push('/login')
     },
+    resetForm() {
+      this.$refs.form.resetFields();
+      this.form = {}
+    },
+    changePwd() {
+      this.$refs.form.validate(async val => {
+        if (val) {
+          this.form.scope = window.sessionStorage.getItem('scope')
+          this.$http.patch(
+            '/password',
+            this.form
+          ).then(result => {
+            if (result.status == 204) {
+              this.$message('修改成功');
+              //  清空表单
+              this.resetForm();
+              this.dialogFormVisible = false
+            } else {
+              this.$message('修改失败, 请检查密码正确性');
+            }
+          })
+        }
+      })
+    }
   }
 }
 </script>

@@ -37,6 +37,13 @@
             </el-col>
           </el-form-item>
         </el-row>
+        <el-row :gutter="10" v-if="isAdd()">
+          <el-form-item label="登入密码" prop="password" :error="errorMsg['password']">
+            <el-col>
+              <el-input placeholder="输入代理商登入密码" v-model.trim="formlist.password"></el-input>
+            </el-col>
+          </el-form-item>
+        </el-row>
         <!-- 提交+重置按钮-->
         <el-form-item style="margin-left:200px">
           <el-button type="primary" @click="addAgent()">提交</el-button>
@@ -58,6 +65,7 @@ export default {
         short_name: this.$route.query.short_name,
         connect_name: this.$route.query.connect_name,
         connect_phone: this.$route.query.connect_phone,
+        password: '',
         agent_uuid: this.$route.query.agent_uuid,
       },
       ruleValidate: {
@@ -76,6 +84,10 @@ export default {
         connect_phone: [
           { required: true, message: '手机号不能为空', trigger: 'blur' },
           { max: 11, message: '请输入正确的手机号', pattern: '^1[345789][0-9]{9}$', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '密码不能为空', trigger: 'blur' },
+          { max: 16, message: '长度在16个字符内', trigger: 'blur' }
         ]
       },
       // 自定义错误提示
@@ -94,7 +106,9 @@ export default {
     isAdd() {
       if (this.formlist.name != undefined) {  
         this.title = '编辑'
+        return false
       }
+      return true
     },
     // 重置
     resetForm() {
@@ -119,6 +133,7 @@ export default {
                 this.$message('提交成功');
                 //  清空表单
                 this.resetForm();
+                this.$router.push('/agentPreview')
               } else {
                 let errors = result.data.errors
                 for (let key of Object.keys(errors)) {

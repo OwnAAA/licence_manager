@@ -3,7 +3,7 @@
     <el-col>
       <!-- 导航头 -->
       <div class="logo">
-        METRONIC
+        LM授权管理系统
         <el-dropdown :hide-on-click="false">
           <span class="el-dropdown-link">
             <el-button type="text" icon="el-icon-magic-stick" circle></el-button>
