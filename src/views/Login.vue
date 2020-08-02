@@ -2,10 +2,10 @@
   <div class="login_container">
     <el-row class="full">
       <el-col :xs="24" :sm="24" :md="14" style="height: 100%;" class="hidden-sm-and-down">
-        <img width="100%" height="100%" class="bg" src="https://gratisography.com/wp-content/uploads/2019/11/gratisography-laptop-colorful-keys-800x525.jpg"/>
+        <img width="100%" height="100%" class="bg" src="../../public/bg.jpg"/>
       </el-col>
       <el-col :xs="24" :sm="24" :md="14" class="hidden-md-and-up">
-        <img width="100%" class="bg" src="https://gratisography.com/wp-content/uploads/2019/11/gratisography-laptop-colorful-keys-800x525.jpg"/>
+        <img width="100%" class="bg" src="../../public/bg.jpg"/>
       </el-col>
       <el-col :xs="22" :sm="22" :md="8" :offset="2" :pull="1" style="margin-top: 20%;">
         <br/>
