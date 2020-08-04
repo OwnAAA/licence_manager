@@ -25,7 +25,7 @@
       </el-row>
       <!-- 产品列表 -->
       <el-table :data="productList" border>
-        <el-table-column label="id" prop="id"></el-table-column>
+        <el-table-column label="id" prop="project_uuid"></el-table-column>
         <el-table-column label="名称" prop="project_name"></el-table-column>
         <el-table-column label="编号" prop="project_no"></el-table-column>
         <el-table-column label="代理天数" prop="free_days"></el-table-column>
