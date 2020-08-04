@@ -2,7 +2,7 @@
   <div id="nav_wrap">
     <el-col>
       <!-- 导航头 -->
-      <div class="nav_title">LM授权管理系统</div>
+      <div class="nav_title">VIPLive账户管理系统</div>
       <!-- 导航菜单 -->
       <el-menu
         background-color="transparent"

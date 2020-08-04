@@ -58,12 +58,27 @@
               </el-dropdown-menu>
             </el-dropdown>
             <!-- 编辑 -->
-            <el-button
-              class="rightBtns"
-              size="small"
-              icon="el-icon-edit-outline"
-              @click="turnToEdit(scope.row)"
-            ></el-button>
+            <el-dropdown>
+              <el-button
+                class="rightBtns"
+                size="small"
+                icon="el-icon-edit-outline"
+              ></el-button>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>
+                  <!-- 修改密码 -->
+                  <el-button type="text" @click="changePwdDialogShow(scope.row)">
+                    <i class="el-icon-edit"></i>&nbsp;修改密码
+                  </el-button>
+                </el-dropdown-item>
+                <!-- 修改信息  -->
+                <el-dropdown-item>
+                  <el-button type="text" @click="turnToEdit(scope.row)">
+                    <i class="el-icon-edit"></i>&nbsp;修改信息
+                  </el-button>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
             <!-- 删除 -->
             <el-button
               class="rightBtns"
@@ -75,12 +90,30 @@
         </el-table-column>
       </el-table>
     </el-card>
+
+    <el-dialog title="修改密码" width="300px" :visible.sync="changePwdDialog">
+      <el-form :model="form" ref="form">
+        <el-form-item>
+          <el-input placeholder="请输入新密码" v-model="form.new_password" show-password></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-input type="hidden" v-model="form.agent_uuid"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="changePwdDialog = false">取 消</el-button>&nbsp;
+        <el-button type="primary" @click="changePwd">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
+      changePwdDialog: false,
+      currAgentUuid: '',
+      form: {},
       // 代理商数组
       agentList: [],
       // 搜索
@@ -93,6 +126,31 @@ export default {
     this.getAgentList()
   },
   methods: {
+    changePwdDialogShow(row) {
+      this.currAgentUuid = row.agent_uuid;
+      this.changePwdDialog = true
+    },
+    changePwd() {
+      this.$refs.form.validate(async val => {
+        if (val) {
+          this.form.scope = window.sessionStorage.getItem('scope')
+          this.form.agent_uuid = this.currAgentUuid
+          this.$http.patch(
+            '/password',
+            this.form
+          ).then(result => {
+            if (result.status == 204) {
+              this.$message('修改成功');
+              //  清空表单
+              this.form = {}
+              this.changePwdDialog = false
+            } else {
+              this.$message('修改失败, 请检查密码正确性');
+            }
+          })
+        }
+      })
+    },
     // 获取代理商列表
     getAgentList() {
       this.$http.get('/agents', this.queryInfo.name ? this.queryInfo : '')

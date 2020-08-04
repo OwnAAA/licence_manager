@@ -10,7 +10,7 @@
       <el-col :xs="22" :sm="22" :md="8" :offset="2" :pull="1" style="margin-top: 20%;">
         <br/>
         <el-card class="box-card">
-          <h3>LM授权管理系统</h3>
+          <h3>VIPLive账户管理系统</h3>
           <!-- 登录表单 -->
           <el-form
             :model="loginForm"

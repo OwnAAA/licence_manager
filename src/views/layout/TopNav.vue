@@ -3,19 +3,19 @@
     <el-col>
       <!-- 导航头 -->
       <div class="logo">
-        LM授权管理系统
+        VIPLive账户管理系统
         <el-dropdown :hide-on-click="false">
           <span class="el-dropdown-link">
             <el-button type="text" icon="el-icon-magic-stick" circle></el-button>
           </span>
           <el-dropdown-menu slot="dropdown" style="width: 200px;">
-            <span>代理商管理</span>
-            <el-dropdown-item>
+            <span v-if="scope !== 'agent'">代理商管理</span>
+            <el-dropdown-item v-if="scope !== 'agent'">
               <el-button type="text" @click="$router.push('/addAgent')">
                 <i class="iconfont">&#xe605;</i>添加代理商
               </el-button>
             </el-dropdown-item>
-            <el-dropdown-item>
+            <el-dropdown-item v-if="scope !== 'agent'">
               <el-button type="text" @click="$router.push('/agentPreview')">
                 <i class="iconfont">&#xe605;</i>代理商一览
               </el-button>

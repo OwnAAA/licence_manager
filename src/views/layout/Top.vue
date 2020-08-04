@@ -23,12 +23,9 @@
         <el-form-item>
           <el-input placeholder="请输入旧密码" v-model="form.old_password" show-password></el-input>
         </el-form-item>
-        <el-form-item>
-          <el-input placeholder="请输入新密码" v-model="form.new_password" show-password></el-input>
-        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button @click="dialogFormVisible = false">取 消</el-button>&nbsp;
         <el-button type="primary" @click="changePwd">确 定</el-button>
       </div>
     </el-dialog>
