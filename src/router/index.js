@@ -9,6 +9,7 @@ import Deposit from '../views/Deposit.vue';
 import Record from '../views/Record.vue';
 import AddProduct from '../views/AddProduct.vue';
 import ProductManager from '../views/ProductManager.vue';
+import Setting from '../views/Setting.vue';
 
 Vue.use(VueRouter);
 const originalPush = VueRouter.prototype.push;
@@ -60,6 +61,11 @@ const routes = [
         path: '/productManager',
         component: ProductManager,
         meta: { title: '产品管理' },
+      },
+      {
+        path: '/setting',
+        component: Setting,
+        meta: { title: '系统设置' },
       },
     ],
   },

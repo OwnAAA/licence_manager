@@ -3,7 +3,7 @@
     <el-col>
       <!-- 导航头 -->
       <div class="logo">
-        VIPLive账户管理系统
+        {{title}}
         <el-dropdown :hide-on-click="false">
           <span class="el-dropdown-link">
             <el-button type="text" icon="el-icon-magic-stick" circle></el-button>
@@ -44,6 +44,7 @@ export default {
   name: 'TopNav',
   data() {
     return {
+      title: window.sessionStorage.getItem('title'),
     }
   },
   methods: {

@@ -2,15 +2,15 @@
   <div class="login_container">
     <el-row class="full">
       <el-col :xs="24" :sm="24" :md="14" style="height: 100%;" class="hidden-sm-and-down">
-        <img width="100%" height="100%" class="bg" src="../../public/bg.jpg"/>
+        <img width="100%" height="100%" class="bg" :src="bgUrl"/>
       </el-col>
       <el-col :xs="24" :sm="24" :md="14" class="hidden-md-and-up">
-        <img width="100%" class="bg" src="../../public/bg.jpg"/>
+        <img width="100%" class="bg" :src="bgUrl"/>
       </el-col>
       <el-col :xs="22" :sm="22" :md="8" :offset="2" :pull="1" style="margin-top: 20%;">
         <br/>
         <el-card class="box-card">
-          <h3>VIPLive账户管理系统</h3>
+          <h3>{{ title }}</h3>
           <!-- 登录表单 -->
           <el-form
             :model="loginForm"
@@ -43,6 +43,8 @@ import axios from 'axios'
 export default {
   data() {
     return {
+      title: window.sessionStorage.getItem('title'),
+      bgUrl: window.sessionStorage.getItem('bg'),
       loginForm: {
         username: '',
         password: ''
