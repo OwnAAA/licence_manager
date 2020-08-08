@@ -19,7 +19,7 @@
       <div>
           <el-upload
             class="avatar-uploader"
-            action="http://127.0.0.1:8000/resource"
+            action="http://api.lm.5c.work/resource"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload">

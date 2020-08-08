@@ -86,7 +86,6 @@ export default {
             }
           })
             .then(result => {
-              console.log(result)
               if (result.status !== 200) {
                 return this.$message.error('登录失败')
               }
