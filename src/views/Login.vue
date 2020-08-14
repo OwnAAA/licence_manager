@@ -43,8 +43,8 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      title: window.sessionStorage.getItem('title'),
-      bgUrl: window.sessionStorage.getItem('bg'),
+      title: '',
+      bgUrl: '',
       loginForm: {
         username: '',
         password: ''
@@ -66,6 +66,19 @@ export default {
         ]
       }
     }
+  },
+  beforeCreate() {
+    this.$nextTick(() => {
+      this.$http.get(
+        '/setting'
+      ).then(result => {
+        
+        this.title = result.data.title
+        this.bgUrl = result.data.bg
+
+      })
+      
+    })
   },
   methods: {
     // login () {
@@ -90,6 +103,7 @@ export default {
                 return this.$message.error('登录失败')
               }
               this.$message.success('您已成功登入')
+              window.sessionStorage.setItem('uuid', result.data.uuid)
               window.sessionStorage.setItem('scope', result.data.token_scope)
               window.sessionStorage.setItem('token', result.data.access_token)
               window.sessionStorage.setItem('datatime', result.data.expires_in)

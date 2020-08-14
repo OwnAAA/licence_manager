@@ -38,7 +38,7 @@
             <el-menu-item index="userManager"><i class="iconfont">&#xe605;</i>用户管理</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-        <el-menu-item index="Setting">
+        <el-menu-item index="Setting" v-if="scope !== 'agent'">
           <i class="el-icon-setting"></i>
           <span slot="title">系统设置</span>
         </el-menu-item>
@@ -58,7 +58,21 @@ export default {
     }
   },
   created() {
-    this.scope = window.sessionStorage.getItem('scope')
+    this.$nextTick(() => {
+      this.$http.get(
+        '/setting'
+      ).then(result => {
+        
+        this.title = result.data.title
+        this.scope = result.data.scope
+
+        window.sessionStorage.setItem('title', result.data.title)
+        window.sessionStorage.setItem('scope', result.data.scope)
+        window.sessionStorage.setItem('bg', result.data.bg)
+
+      })
+      
+    })
   }
 }
 </script>

@@ -19,7 +19,7 @@
       <div>
           <el-upload
             class="avatar-uploader"
-            action="http://lm.5c.work/api/resource"
+            action="http://viplive.wild-c.com/api/resource"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload">

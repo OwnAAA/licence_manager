@@ -51,7 +51,6 @@ export default {
     logout() {
       window.sessionStorage.clear()
       this.$router.push('/login')
-      window.reload()
     },
     resetForm() {
       this.$refs.form.resetFields();

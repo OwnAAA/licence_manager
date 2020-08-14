@@ -26,6 +26,13 @@
                 <i class="iconfont">&#xe605;</i>用户管理
               </el-button>
             </el-dropdown-item>
+            <span v-if="scope !== 'agent'">系统设置</span>
+            <el-dropdown-item v-if="scope !== 'agent'">
+              <el-button type="text" @click="$router.push('/Setting')">
+                <i class="iconfont">&#xe605;</i>系统设置
+              </el-button>
+            </el-dropdown-item>
+          </el-dropdown-menu>
           </el-dropdown-menu>
         </el-dropdown>
         <el-button
@@ -45,7 +52,11 @@ export default {
   data() {
     return {
       title: window.sessionStorage.getItem('title'),
+      scope: '',
     }
+  },
+  created() {
+    this.scope = window.sessionStorage.getItem('scope')
   },
   methods: {
     logout() {

@@ -20,10 +20,10 @@
             ></el-input>
           </el-col>
           <!-- 代理商选择器 -->
-          <el-col :span="2">
+          <el-col :span="2" v-if="scope === 'admin'">
             <span class="itemTitle">代理商：</span>
           </el-col>
-          <el-col :span="9">
+          <el-col :span="9" v-if="scope === 'admin'">
             <el-select v-model="value" clearable placeholder="请选择" @change="indexSelect($event)">
               <el-option v-for="(item,key) in agentName" :key="key" :value="item"></el-option>
             </el-select>
@@ -86,10 +86,15 @@ export default {
       // 代理商名称
       agentName: {},
       value: '',
+      scope: '',
 
     }
   },
   created() {
+    this.scope = window.sessionStorage.getItem('scope')
+    if (this.scope === 'agent') {
+      this.queryInfo.agent_uuid = window.sessionStorage.getItem('uuid')
+    }
     this.getUsertList();
   },
   methods: {
