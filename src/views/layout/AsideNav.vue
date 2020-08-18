@@ -59,15 +59,15 @@ export default {
   },
   created() {
     this.$nextTick(() => {
+      this.scope = window.sessionStorage.getItem('scope')
+        
       this.$http.get(
         '/setting'
       ).then(result => {
         
         this.title = result.data.title
-        this.scope = result.data.scope
 
         window.sessionStorage.setItem('title', result.data.title)
-        window.sessionStorage.setItem('scope', result.data.scope)
         window.sessionStorage.setItem('bg', result.data.bg)
 
       })

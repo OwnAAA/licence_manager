@@ -38,6 +38,7 @@
           <el-table-column prop="phone" label="手机号"></el-table-column>
           <el-table-column prop="name" label="代理商"></el-table-column>
           <el-table-column prop="project_name" label="产品"></el-table-column>
+	  <el-table-column prop="description" label="备注"></el-table-column>
           <el-table-column prop="created_at" label="注册时间"></el-table-column>
           <el-table-column prop="expired_at" label="会员到期日"></el-table-column>
           <!-- 操作列 -->
@@ -50,7 +51,7 @@
                   <el-dropdown-item>
                     <!-- 用户充值 -->
                     <el-button type="text" @click="turnToDeposit(scope.row)">
-                      <i class="el-icon-plus"></i>记录
+                      <i class="el-icon-plus"></i>充值
                     </el-button>
                   </el-dropdown-item>
                   <!-- 充值记录  -->
@@ -170,7 +171,7 @@ export default {
         type: 'warning'
       }).catch(err => err);
       if (delRes == 'confirm') {
-        this.$http.del('/agent/' + this.queryInfo.user_uuid)
+        this.$http.del('/user/' + this.queryInfo.user_uuid)
           .then(result => {
             if (result.status == 204) {
               this.$message({
