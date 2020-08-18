@@ -38,7 +38,7 @@
           <el-table-column prop="phone" label="手机号"></el-table-column>
           <el-table-column prop="name" label="代理商"></el-table-column>
           <el-table-column prop="project_name" label="产品"></el-table-column>
-	  <el-table-column prop="description" label="备注"></el-table-column>
+          <el-table-column prop="description" label="备注"></el-table-column>
           <el-table-column prop="created_at" label="注册时间"></el-table-column>
           <el-table-column prop="expired_at" label="会员到期日"></el-table-column>
           <!-- 操作列 -->
@@ -60,6 +60,12 @@
                       <i class="el-icon-coin"></i>充值记录
                     </el-button>
                   </el-dropdown-item>
+                  <!-- 描述  -->
+                  <el-dropdown-item>
+                    <el-button type="text" @click="showDialog(scope.row)">
+                      <i class="el-icon-coin"></i>修改描述
+                    </el-button>
+                  </el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
               <!-- 删除 -->
@@ -74,6 +80,19 @@
         </el-table>
       </div>
     </el-card>
+
+    <el-dialog title="修改描述" width="400px" :visible.sync="dialogVisible">
+      <el-form>
+        <el-form-item>
+          <el-input type="textarea" :rows="2" placeholder="请输入描述" v-model="desc"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        &nbsp;
+        <el-button type="primary" @click="patchDesc">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -88,7 +107,9 @@ export default {
       agentName: {},
       value: '',
       scope: '',
-
+      dialogVisible: false,
+      uid: '',
+      desc: '',
     }
   },
   created() {
@@ -107,6 +128,22 @@ export default {
           if (result.status == 200) {
             this.userInfo = result.data
             this.getName()
+          }
+        })
+    },
+    showDialog(row) {
+      this.uid = row.user_uuid
+      this.desc = row.description
+      this.dialogVisible = true
+    },
+    patchDesc() {
+      this.$http.patch('users/' + this.uid, {
+        'desc': this.desc
+      })
+        .then(result => {
+          if (result.status == 204) {
+            this.dialogVisible = false
+            this.getUsertList()
           }
         })
     },
